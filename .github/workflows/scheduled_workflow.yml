@@ -36,8 +36,8 @@ jobs:
       run: |
         date=$(date +'%Y-%m-%d')
         rm -rf vulnerable_products.jsonl.tgz
-        aws s3 cp s3://strobes-intel/$date.zip .
-        unzip $date.zip -d $date
+        aws s3 cp s3://strobes-intel/$date.tar.gz .
+        tar -xvf $date.tar.gz -C $date
         tar -czf vulnerable_products.jsonl.tgz $date/vulnerable_products.jsonl
         rm -rf $date*
         git config --global user.name 'GitHub'
