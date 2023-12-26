@@ -1,6 +1,9 @@
 name: Update Vulnerable Packages From S3 to GitHub
 
 on:
+  push:
+    branches: 
+      - "main"
   schedule:
     - cron: "30 4 * * *"
 
@@ -37,6 +40,7 @@ jobs:
         date=$(date +'%Y-%m-%d')
         rm -rf vulnerable_products.jsonl.tgz
         aws s3 cp s3://strobes-intel/$date.tar.gz .
+        mkdir $date
         tar -xvf $date.tar.gz -C $date
         tar -czf vulnerable_products.jsonl.tgz $date/vulnerable_products.jsonl
         rm -rf $date*
